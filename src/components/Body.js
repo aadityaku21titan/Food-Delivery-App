@@ -1,15 +1,13 @@
 import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
-import reslist from "../utils/mockData";
 
 const Body = () => {
   // Local state variable - super powerful variable
-  const [listOfRestaurants, setListOfRestaurants] = useState(reslist);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
 
   // const arr = useState(resList);
-
   // // const [listOfRestaurants, setListOfRestraunt] = arr;
-
   // const listOfRestaurants = arr[0];
   // const setListOfRestraunt = arr[1];
 
@@ -25,10 +23,17 @@ const Body = () => {
     console.log(json);
     // Optional Chaining
     // const restaurants = json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-    const restaurants = json?.data?.cards[2]?.data?.data?.cards;
+    const restaurants =
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants;
+
     console.log(restaurants);
     setListOfRestaurants(restaurants);
   };
+
+  if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
+  }
 
   return (
     <div className="body">
